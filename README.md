@@ -1,57 +1,81 @@
 # docker_flask
 Docker setup to start a Flask project.
 
-## Building the Docker image
+## Supported tags and respective `Dockerfile` links
 
-To build the Docker image, do the following:
+(See ["What's the difference between 'Shared' and 'Simple' tags?" in the FAQ](https://github.com/docker-library/faq#whats-the-difference-between-shared-and-simple-tags).)
 
+## Simple tags
+
+-	[`latest`, `python-3.9.2`](./Dockerfile)
+-	[`latest-app`, `python-3.9.2-app`](./Dockerfile.app)
+- `dev`
+
+## How to use this image
+
+### Create a `Dockerfile` in your Python app project
+
+```dockerfile
+FROM pvital/docker_flask:latest
+
+WORKDIR /usr/src/app
+
+COPY . .
+
+EXPOSE 5000
+ENTRYPOINT ["python"]
+CMD ["-m", "flask", "run", "--host=0.0.0.0"]
 ```
-# docker build -t <img_name>:latest .
-```
 
-where `<img_name>` is the name of the Docker image for your project.
+You can then build and run the Docker image:
 
-## Running the Docker image
-
-To run the Docker image created before, execute the following:
-
-```
-# docker run -d \
-  -p 8080:5000 \
-  --mount type=bind,source="$PROJ_DIR",target=/app \
-  --name <app_name> \
-  <img_name>:latest
+```console
+$ docker build -t <img_name>:[tag] .
+$ docker run -it --rm -p 8080:5000 --name <app_name> <img_name>:[tag]
 ```
 
 where:
 
-* `$PROJ_DIR` is the path to the project directory, 
+* `<img_name>` is the name of the Docker image for your project.
+* `[tag]` is an optional alias for this image. The default is `latest`.
 * `<app_name>` specifies a name with which you can refer to your container in 
-subsequent commands,
-* `<img_name>` is the name of the Docker image you built in the previous step.
+subsequent commands.
 
-Now the Flask service is responding on port 8080 of your localhost. Point
-your browser to http://127.0.0.1:8080/ and enjoy the magic.
 
-If you want to see the output of the Flask console, execute the previous
-command without the '-d' argument, and you will see the following output:
+### Run a simple Flask project
 
-```
-# docker run \
+For many simple, single Flask projects, you may find it inconvenient to write a
+complete `Dockerfile`. In such cases, you can run a Flask application by using
+the `docker_flask` image directly:
+
+```console
+$ docker run -it --rm \
   -p 8080:5000 \
   --mount type=bind,source="$PROJ_DIR",target=/app \
   --name <app_name> \
-  <img_name>:latest
+  pvital/docker_flask:latest
+```
 
- * Serving Flask app "server" (lazy loading)
- * Environment: production
-   WARNING: This is a development server. Do not use it in a production deployment.
-   Use a production WSGI server instead.
- * Debug mode: on
- * Running on http://0.0.0.0:8080/ (Press CTRL+C to quit)
- * Restarting with stat
- * Debugger is active!
- * Debugger PIN: 955-219-155
+where:
+
+* `$PROJ_DIR` is the path to the project directory. 
+* `<app_name>` specifies a name with which you can refer to your container in 
+subsequent commands.
+
+Now the Flask service is responding on port 8080 of your local host. Point
+your browser to http://127.0.0.1:8080/ and enjoy the magic. If you want the 
+application to listen to a different port, substitute the number 8080 from the
+command above to the desired one.
+
+If you want to run the Flask application in a daemonized mode, execute the
+command with the `-d` argument:
+
+```console
+$ docker run -d --rm \
+  -p 8080:5000 \
+  --mount type=bind,source="$PROJ_DIR",target=/app \
+  --name <app_name> \
+  pvital/docker_flask:latest
  ```
 
 To terminate the execution, just type CTRL+C in the same console.
