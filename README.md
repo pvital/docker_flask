@@ -3,7 +3,7 @@ Docker setup to start a Flask project.
 
 ## Building the Docker image
 
-To build the Docker image, do:
+To build the Docker image, do the following:
 
 ```
 # docker build -t <img_name>:latest .
@@ -13,11 +13,11 @@ where `<img_name>` is the name of the Docker image for your project.
 
 ## Running the Docker image
 
-To run the Docker image created before, execute:
+To run the Docker image created before, execute the following:
 
 ```
 # docker run -d \
-  -p 8080:8080 \
+  -p 8080:5000 \
   --mount type=bind,source="$PROJ_DIR",target=/app \
   --name <app_name> \
   <img_name>:latest
@@ -38,7 +38,7 @@ command without the '-d' argument, and you will see the following output:
 
 ```
 # docker run \
-  -p 8080:8080 \
+  -p 8080:5000 \
   --mount type=bind,source="$PROJ_DIR",target=/app \
   --name <app_name> \
   <img_name>:latest

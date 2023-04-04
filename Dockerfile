@@ -21,6 +21,6 @@ RUN mkdir /app
 WORKDIR /app
 
 # Setup necessary variables and execute application
-EXPOSE 8080
+EXPOSE 5000
 ENTRYPOINT ["python"]
-CMD ["server.py"]
+CMD ["-m", "flask", "run", "--host=0.0.0.0"]
