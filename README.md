@@ -5,10 +5,15 @@ Docker setup to start a Flask project.
 
 (See ["What's the difference between 'Shared' and 'Simple' tags?" in the FAQ](https://github.com/docker-library/faq#whats-the-difference-between-shared-and-simple-tags).)
 
+All images use the Debian Slim images from 
+[Python](https://hub.docker.com/_/python) project as the source.
+
 ## Simple tags
 
--	[`latest`, `python-3.9.2`](./Dockerfile)
--	[`latest-app`, `python-3.9.2-app`](./Dockerfile.app)
+-	[`latest`, `python-3.11.2`](./Dockerfile)
+-	[`latest-app`, `python-3.11.2-app`](./Dockerfile.app)
+-	[`python-3.9.2`](./Dockerfile.python-3.9.2)
+-	[`python-3.9.2-app`](./Dockerfile.app-3.9.2)
 - `dev`
 
 ## How to use this image
@@ -65,7 +70,7 @@ subsequent commands.
 Now the Flask service is responding on port 8080 of your local host. Point
 your browser to http://127.0.0.1:8080/ and enjoy the magic. If you want the 
 application to listen to a different port, substitute the number 8080 from the
-command above to the desired one.
+command above with the desired one.
 
 If you want to run the Flask application in a daemonized mode, execute the
 command with the `-d` argument:

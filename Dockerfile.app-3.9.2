@@ -1,0 +1,18 @@
+#
+# docker_flask - Docker setup to start a Flask project.
+# Copyright (c) 2023 Paulo Vital <paulo@vital.eng.br>
+#
+
+FROM pvital/docker_flask:python-3.9.2
+
+# Basic and general settings
+ENV PYTHONUNBUFFERED 1
+
+# Copy application files
+COPY app/ /app
+WORKDIR /app
+
+# Setup necessary variables and execute application
+EXPOSE 5000
+ENTRYPOINT ["python"]
+CMD ["-m", "flask", "run", "--host=0.0.0.0"]
