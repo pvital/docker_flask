@@ -12,6 +12,7 @@ All images use the Debian Slim images from
 
 -	[`latest`, `python-3.11.2`](./Dockerfile)
 -	[`latest-app`, `python-3.11.2-app`](./Dockerfile.app)
+-	[`gunicorn`](./Dockerfile.gunicorn)
 -	[`python-3.9.2`](./Dockerfile.python-3.9.2)
 -	[`python-3.9.2-app`](./Dockerfile.app-3.9.2)
 - `dev`
