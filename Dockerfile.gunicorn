@@ -1,0 +1,21 @@
+#
+# docker_flask - Docker setup to start a Flask project.
+# Copyright (c) 2023 Paulo Vital <paulo@vital.eng.br>
+#
+
+FROM pvital/docker_flask:latest
+
+# Basic and general settings
+ENV PYTHONUNBUFFERED 1
+
+RUN pip install --upgrade pip
+RUN pip install gunicorn
+
+# Copy application files
+COPY app/ /app
+WORKDIR /app
+
+# Setup necessary variables and execute application
+EXPOSE 8000
+ENTRYPOINT ["gunicorn"]
+CMD ["-b", "0.0.0.0", "-w", "4", "app:app"]
